@@ -36,20 +36,20 @@ public class Bundle
         return bundle.size();
     }
 
-    public Bundle getRandomDominoBundle(int numRandDom)
+    public ArrayList<Domino> getRandomDominoBundle(int numRandDom)
     {
-        Bundle randBundle = new Bundle(numRandDom);
+        ArrayList randHand = new ArrayList<Domino>();
 
         for (int i = 0; i < numRandDom; i++)
         {
             Random rand = new Random();
             int randomInt = rand.nextInt(bundle.size()) + 0; //(max number) + min number
-            System.out.println("The random int is " + randomInt);
+            //System.out.println("The random int is " + randomInt);
             bundle.get(randomInt).up = true;
-            randBundle.addDomino(bundle.get(randomInt));
+            randHand.add(bundle.get(randomInt));
             bundle.remove(bundle.get(randomInt));
         }
-        return randBundle;
+        return randHand;
     }
 
     public void printBundle ()
@@ -57,7 +57,6 @@ public class Bundle
         for (Domino dom: bundle)
         {
             System.out.println(" |" + dom.sideOne + "-" + dom.sideTwo + "| ");
-            //System.out.print(" index is :" + bundle.indexOf(dom));
         }
     }
 }
