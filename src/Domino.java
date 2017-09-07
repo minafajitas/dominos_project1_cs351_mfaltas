@@ -1,4 +1,7 @@
-public class Domino {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Domino extends Application{
 
     int sideOne;
     int sideTwo;
@@ -11,4 +14,10 @@ public class Domino {
         this.sideTwo = sideTwo;
         this.up = false;
     }
+
+    public void start (Stage primaryStage)
+    {
+
+    }
+
 }
