@@ -53,4 +53,9 @@ public class Player
     {
         return playerId;
     }
+
+    int getHandSize ()
+    {
+        return hand.size();
+    }
 }
