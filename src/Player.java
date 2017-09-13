@@ -7,6 +7,7 @@ public class Player
 {
     int playerId;
     public ArrayList<Domino> hand = new ArrayList<Domino>();
+    int dominoSelected = -1;
 
     public Player(int playerId, ArrayList hand)
     {
