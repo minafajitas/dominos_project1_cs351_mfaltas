@@ -25,7 +25,7 @@ public class Controller extends Application
 
     public void start(Stage primaryStage)
     {
-        primaryStage.setTitle("Mina Faltas's dominos");
+        primaryStage.setTitle("Mina Faltas's dominos Adventure DLC");
         Game newGame = new Game();
 
         //defining necessary banes and boxes
@@ -169,7 +169,7 @@ public class Controller extends Application
             double newX = 390;
             double newY = 350;
             int newXForLeft = 390;
-            int newYForLeft = 400;
+            int newYForLeft = 450;
             double rotation = 90.0;
             System.out.println("board is not empty");
             ImageView iv1 = newGame.theBoard.centerDomino.getImage();
@@ -217,8 +217,8 @@ public class Controller extends Application
             {
                 for (int i = (newGame.theBoard.leftSideList.size()-1); i >= 0; i--)
                 {
-                    newXForLeft = newXForLeft - 20;
-                    if (i % 2 != 0)
+                    newXForLeft = newXForLeft + 20;
+                    if (i % 2 == 0)
                     {
                         newYForLeft -= 20;
                     }
