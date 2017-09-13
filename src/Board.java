@@ -11,12 +11,11 @@ public class Board
     {
         leftSideList = new ArrayList<Domino>();
         rightSideList = new ArrayList<Domino>();
-
     }
 
     public boolean isEmpty()
     {
-        if (leftSideList.isEmpty() && rightSideList.isEmpty()) {
+        if (leftSideList.isEmpty() && rightSideList.isEmpty() && centerDomino == null) {
             return true;
         }
         else
@@ -30,7 +29,9 @@ public class Board
 
     public void addDominoToBoard (Domino addedDom, boolean rightSide, boolean sideOne)
     {
-        if (leftSideList.isEmpty() && rightSideList.isEmpty()) {
+        if (leftSideList.isEmpty() && rightSideList.isEmpty() && centerDomino == null)
+        {
+            System.out.println("in board class, both right and side lists are empty");
             centerDomino = addedDom;
             this.leftSide = addedDom.sideOne;
             this.rightSide = addedDom.sideTwo;
@@ -39,20 +40,17 @@ public class Board
         {
             if (sideOne == false)
             {
-                int temp = addedDom.sideOne;
-                addedDom.sideOne = addedDom.sideTwo;
-                addedDom.sideTwo = temp;
+                addedDom.rotateDomino();
             }
             this.rightSideList.add(addedDom);
             this.rightSide = addedDom.sideTwo;
         }
         else
         {
+            System.out.println("board class, adding to left list");
             if (sideOne == true)
             {
-                int temp = addedDom.sideOne;
-                addedDom.sideOne = addedDom.sideTwo;
-                addedDom.sideTwo = temp;
+                addedDom.rotateDomino();
             }
             this.leftSideList.add(addedDom);
             this.leftSide = addedDom.sideOne;
