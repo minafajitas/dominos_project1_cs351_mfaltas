@@ -21,14 +21,13 @@ public class Bundle
         }
     }
 
-    public void addDomino (Domino domino)
+    Domino getRandomDomino ()
     {
-        bundle.add(domino);
-    }
-
-    public void RemoveDomino (Domino domino)
-    {
-        bundle.remove(domino);
+        Random rand = new Random();
+        int randomInt = rand.nextInt(bundle.size()) + 0; //(max number) + min number
+        Domino tempDomino = bundle.get(randomInt);
+        bundle.remove(bundle.get(randomInt));
+        return tempDomino;
     }
 
     public int getNumberOfDominos ()

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javafx.scene.image.ImageView;
@@ -40,14 +41,31 @@ public class Controller extends Application
         HBox handImagesBox = new HBox();
         VBox boardBox = new VBox();
 
+        //Set the box for a AI turn window
+        Stage AITurnStage = new Stage();
+        Text turnAIText = new Text();
+        turnAIText.setText("The AI has put down a domino. It is your turn now");
+        StackPane AITextPane = new StackPane();
+        AITextPane.getChildren().add(turnAIText);
+        AITurnStage.setTitle("AI has placed a domino");
+        AITurnStage.setScene(new Scene(AITextPane, 300,40));
 
-        if (!newGame.humanPlayer.getHand().isEmpty())
-        {
-            for (int i = 0; i < newGame.humanPlayer.getHandSize(); i++)
-            {
-                handImagesBox.getChildren().addAll(newGame.humanPlayer.getHand().get(i).getImage());
-            }
-        }
+        //Creates the winning screens
+        Stage winStageHuman = new Stage();
+        Stage winStageAI = new Stage();
+        Text winTextHuman = new Text();
+        Text winTextAI = new Text();
+        winTextHuman.setText("The Human player has won");
+        winTextAI.setText("The AI players has won");
+        StackPane winPaneAI = new StackPane();
+        StackPane winPaneHuman = new StackPane();
+        winPaneAI.getChildren().add(winTextAI);
+        winPaneHuman.getChildren().add(winTextHuman);
+        winStageAI.setTitle("AI has won");
+        winStageAI.setScene(new Scene(winPaneAI, 300,40));
+        winStageHuman.setTitle("Human has won");
+        winStageHuman.setScene(new Scene(winPaneHuman, 300,40));
+
 
 //        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(0),false, true);
 //        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(1),true, true);
@@ -73,6 +91,8 @@ public class Controller extends Application
         Button domino7 = new Button("Place domino 7");
         Button placeLeft = new Button("Place on left side");
         Button placeRight = new Button("Place on right side");
+        Button drawFromBoneyard = new Button("Draw from the boneyard");
+        Button passTurn = new Button("Skip turn");
 
         //placing all the boxes in appropriate place in border layout
         gameInterface.setTop(topBox);
@@ -82,7 +102,7 @@ public class Controller extends Application
         rightBox.getChildren().add(placeRight);
         gameInterface.setCenter(boardBox);
         handBox.getChildren().add(handImagesBox);
-        hand_buttons.getChildren().addAll(domino1, domino2, domino3, domino4, domino5, domino6, domino7);
+        hand_buttons.getChildren().addAll(domino1, domino2, domino3, domino4, domino5, domino6, domino7, drawFromBoneyard, passTurn);
         handBox.getChildren().add(hand_buttons);
         gameInterface.setBottom(handBox);
 
@@ -110,15 +130,32 @@ public class Controller extends Application
         domino6.setOnAction(eh);
         domino7.setOnAction(eh);
 
+        paintHand(newGame, handImagesBox);
+
         placeRight.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event)
             {
-                if (newGame.humanPlayer.dominoSelected != -1)
+                if (newGame.humanPlayer.isLegal(newGame, true) || newGame.theBoard.isEmpty())
                 {
-                    newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(newGame.humanPlayer.dominoSelected),true, true, newGame.humanPlayer.getPlayerId(), newGame.humanPlayer.dominoSelected, newGame);
+                    if (newGame.humanPlayer.dominoSelected != -1 && newGame.humanPlayer.dominoSelected < newGame.humanPlayer.getHandSize())
+                    {
+                        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(newGame.humanPlayer.dominoSelected), true, true, newGame.humanPlayer, newGame.humanPlayer.dominoSelected);
+                    }
+                    newGame.AIPlayer.findPieceAI(newGame);
+                    AITurnStage.show();
+                    paintTheBoard(newGame, boardBox);
+                    paintHand(newGame, handImagesBox);
+
+                    if (checkWinConditions(newGame) == 1)
+                    {
+                        winStageHuman.show();
+                    }
+                    else if (checkWinConditions(newGame) == 2)
+                    {
+                        winStageAI.show();
+                    }
                 }
-                paintTheBoard(newGame, boardBox);
             }
         });
 
@@ -126,16 +163,49 @@ public class Controller extends Application
             @Override
             public void handle(ActionEvent event)
             {
-                if (newGame.humanPlayer.dominoSelected != -1)
+                if (newGame.humanPlayer.isLegal(newGame, false) || newGame.theBoard.isEmpty())
                 {
-                    newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(newGame.humanPlayer.dominoSelected),false, true, newGame.humanPlayer.getPlayerId(), newGame.humanPlayer.dominoSelected, newGame);
-                }
-                paintTheBoard(newGame, boardBox);
+                    if (newGame.humanPlayer.dominoSelected != -1 && newGame.humanPlayer.dominoSelected < newGame.humanPlayer.getHandSize())
+                    {
+                        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(newGame.humanPlayer.dominoSelected), false, true, newGame.humanPlayer, newGame.humanPlayer.dominoSelected);
+                    }
+                    newGame.AIPlayer.findPieceAI(newGame);
+                    AITurnStage.show();
+                    paintTheBoard(newGame, boardBox);
+                    paintHand(newGame, handImagesBox);
 
+                    if (checkWinConditions(newGame) == 1)
+                    {
+                        winStageHuman.show();
+                    }
+                    else if (checkWinConditions(newGame) == 2)
+                    {
+                        winStageAI.show();
+                    }
+                }
             }
         });
 
+        drawFromBoneyard.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                newGame.humanPlayer.drawFromBoneyard(newGame, newGame.humanPlayer);
+                paintHand(newGame, handImagesBox);
+            }
+        });
 
+        passTurn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (newGame.humanPlayer.getHandSize() == 7)
+                {
+                    newGame.AIPlayer.findPieceAI(newGame);
+                    AITurnStage.show();
+                    paintTheBoard(newGame, boardBox);
+                    paintHand(newGame, handImagesBox);
+                }
+            }
+        });
 
         //adding the border layout to a stack pane for scene display and setting backgroud color
         gameInterface.setBackground(new Background(new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -200,15 +270,18 @@ public class Controller extends Application
 //                    {
 //                        rotation = -90.0;
 //                    }
-                    ImageView ivRightSide = newGame.theBoard.rightSideList.get(i).getImage();
-                    ivRightSide.setFitWidth(20.0);
-                    ivRightSide.setFitHeight(50.0);
-                    ivRightSide.setPreserveRatio(true);
-                    ivRightSide.setRotate(rotation);
-                    ivRightSide.setTranslateX(newX);
-                    ivRightSide.setTranslateY(newY);
-                    System.out.println("newX is " + newX + " newY is " + newY);
-                    boardBox.getChildren().add(ivRightSide);
+                    if (newGame.theBoard.rightSideList.get(i) != null)
+                    {
+                        ImageView ivRightSide = newGame.theBoard.rightSideList.get(i).getImage();
+                        ivRightSide.setFitWidth(20.0);
+                        ivRightSide.setFitHeight(50.0);
+                        ivRightSide.setPreserveRatio(true);
+                        ivRightSide.setRotate(rotation);
+                        ivRightSide.setTranslateX(newX);
+                        ivRightSide.setTranslateY(newY);
+                        System.out.println("newX is " + newX + " newY is " + newY);
+                        boardBox.getChildren().add(ivRightSide);
+                    }
 //                    System.out.println("Position X right : " + ivRightSide.getBoundsInParent() + "\n Position Y for right " + ivRightSide.getBoundsInParent());
                 }
             }
@@ -241,6 +314,35 @@ public class Controller extends Application
                     boardBox.getChildren().add(ivLeftSide);
                 }
             }
+        }
+    }
+
+    void paintHand (Game newGame, HBox handImagesBox)
+    {
+        handImagesBox.getChildren().clear();
+        if (!newGame.humanPlayer.getHand().isEmpty())
+        {
+            for (int i = 0; i < newGame.humanPlayer.getHandSize(); i++)
+            {
+                handImagesBox.getChildren().addAll(newGame.humanPlayer.getHand().get(i).getImage());
+            }
+        }
+    }
+
+    int checkWinConditions (Game theCurrGame)
+    {
+        if (theCurrGame.humanPlayer.getHandSize() == 0)
+        {
+            return 1;
+
+        }
+        else if (theCurrGame.AIPlayer.getHandSize() == 0)
+        {
+            return 2;
+        }
+        else
+        {
+            return -1;
         }
     }
 }

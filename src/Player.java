@@ -15,37 +15,67 @@ public class Player
         this.hand = hand;
     }
 
-    public void findPieceHuman(Board theBoard)
+    boolean isLegal (Game theCurrGame, Boolean addToRight)
     {
-
+        if (((theCurrGame.humanPlayer.getHand().get(dominoSelected).sideOne == theCurrGame.theBoard.getLeftSide() || theCurrGame.humanPlayer.getHand().get(dominoSelected).sideTwo == theCurrGame.theBoard.getLeftSide()) && addToRight == false)
+                || ((theCurrGame.humanPlayer.getHand().get(dominoSelected).sideOne == theCurrGame.theBoard.getRightSide() || theCurrGame.humanPlayer.getHand().get(dominoSelected).sideTwo == theCurrGame.theBoard.getRightSide()) && addToRight == true))
+        {
+            System.out.println("is Legal is true");
+            return true;
+        }
+        else
+        {
+            System.out.println("is Legal is false");
+            return false;
+        }
     }
 
-    public void findPieceAI (Board theBoard, Game theCurrGame)
+    public void findPieceAI (Game theCurrGame)
     {
-        for (Domino handDom: hand)
+        for (int handDomIndex = 0; handDomIndex < theCurrGame.AIPlayer.getHand().size(); handDomIndex++)
         {
-            if (theBoard.isEmpty())
+            if (theCurrGame.theBoard.isEmpty())
             {
-                theBoard.addDominoToBoard(handDom, true, true, this.playerId, hand.indexOf(handDom), theCurrGame);
+                theCurrGame.theBoard.addDominoToBoard(theCurrGame.AIPlayer.getHand().get(handDomIndex), true, true, theCurrGame.AIPlayer, handDomIndex);
+                return;
             }
-            else if (handDom.sideOne == theBoard.getLeftSide())
+            else if (theCurrGame.AIPlayer.getHand().get(handDomIndex).sideOne == theCurrGame.theBoard.getLeftSide())
             {
-                theBoard.addDominoToBoard(handDom, false, true, this.playerId, hand.indexOf(handDom), theCurrGame);
+                theCurrGame.theBoard.addDominoToBoard(theCurrGame.AIPlayer.getHand().get(handDomIndex), false, true, theCurrGame.AIPlayer, handDomIndex);
+                return;
             }
-            else if (handDom.sideOne == theBoard.getRightSide())
+            else if (theCurrGame.AIPlayer.getHand().get(handDomIndex).sideOne == theCurrGame.theBoard.getRightSide())
             {
-                theBoard.addDominoToBoard(handDom, true, true, this.playerId, hand.indexOf(handDom), theCurrGame);
+                theCurrGame.theBoard.addDominoToBoard(theCurrGame.AIPlayer.getHand().get(handDomIndex), true, true, theCurrGame.AIPlayer, handDomIndex);
+                return;
             }
-            else if (handDom.sideTwo == theBoard.getLeftSide())
+            else if (theCurrGame.AIPlayer.getHand().get(handDomIndex).sideTwo == theCurrGame.theBoard.getLeftSide())
             {
-                theBoard.addDominoToBoard(handDom, false, false, this.playerId, hand.indexOf(handDom), theCurrGame);
+                theCurrGame.theBoard.addDominoToBoard(theCurrGame.AIPlayer.getHand().get(handDomIndex), false, false, theCurrGame.AIPlayer, handDomIndex);
+                return;
             }
-            else if (handDom.sideTwo == theBoard.getRightSide())
+            else if (theCurrGame.AIPlayer.getHand().get(handDomIndex).sideTwo == theCurrGame.theBoard.getRightSide())
             {
-                theBoard.addDominoToBoard(handDom, false, false, this.playerId, hand.indexOf(handDom), theCurrGame);
+                theCurrGame.theBoard.addDominoToBoard(theCurrGame.AIPlayer.getHand().get(handDomIndex), false, false, theCurrGame.AIPlayer, handDomIndex);
+                return;
+            }
+            else
+            {
+                System.out.println("AI is drawing from boneyard");
+                drawFromBoneyard(theCurrGame, theCurrGame.AIPlayer);
             }
         }
     }
+
+    void drawFromBoneyard (Game theCurrGame, Player playerDrawing)
+    {
+        if (!theCurrGame.boneyard.bundle.isEmpty() && playerDrawing.getHandSize() < 7)
+        {
+            playerDrawing.getHand().add(theCurrGame.boneyard.getRandomDomino());
+        }
+
+    }
+
     public ArrayList<Domino> getHand() {
         return hand;
     }
