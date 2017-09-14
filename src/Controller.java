@@ -41,7 +41,7 @@ public class Controller extends Application
         VBox boardBox = new VBox();
 
 
-        if (!newGame.humanPlayer.hand.isEmpty())
+        if (!newGame.humanPlayer.getHand().isEmpty())
         {
             for (int i = 0; i < newGame.humanPlayer.getHandSize(); i++)
             {
@@ -116,7 +116,7 @@ public class Controller extends Application
             {
                 if (newGame.humanPlayer.dominoSelected != -1)
                 {
-                    newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(newGame.humanPlayer.dominoSelected),true, true);
+                    newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(newGame.humanPlayer.dominoSelected),true, true, newGame.humanPlayer.getPlayerId(), newGame.humanPlayer.dominoSelected, newGame);
                 }
                 paintTheBoard(newGame, boardBox);
             }
@@ -128,7 +128,7 @@ public class Controller extends Application
             {
                 if (newGame.humanPlayer.dominoSelected != -1)
                 {
-                    newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(newGame.humanPlayer.dominoSelected),false, true);
+                    newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(newGame.humanPlayer.dominoSelected),false, true, newGame.humanPlayer.getPlayerId(), newGame.humanPlayer.dominoSelected, newGame);
                 }
                 paintTheBoard(newGame, boardBox);
 
@@ -168,8 +168,6 @@ public class Controller extends Application
         {
             double newX = 390;
             double newY = 350;
-            int newXForLeft = 390;
-            int newYForLeft = 450;
             double rotation = 90.0;
             System.out.println("board is not empty");
             ImageView iv1 = newGame.theBoard.centerDomino.getImage();
@@ -184,7 +182,6 @@ public class Controller extends Application
 
             if (!newGame.theBoard.rightSideList.isEmpty())
             {
-                newX = 390;
                 newY = 350;
                 System.out.println("right side is not empty");
                 for (int i = 0; i < newGame.theBoard.rightSideList.size(); i++)
@@ -199,10 +196,10 @@ public class Controller extends Application
                     {
                         newY += -60;
                     }
-                    if (newGame.theBoard.rightSideList.get(i).rotated == true)
-                    {
-                        rotation = -90.0;
-                    }
+//                    if (newGame.theBoard.rightSideList.get(i).rotated == true)
+//                    {
+//                        rotation = -90.0;
+//                    }
                     ImageView ivRightSide = newGame.theBoard.rightSideList.get(i).getImage();
                     ivRightSide.setFitWidth(20.0);
                     ivRightSide.setFitHeight(50.0);
@@ -210,15 +207,19 @@ public class Controller extends Application
                     ivRightSide.setRotate(rotation);
                     ivRightSide.setTranslateX(newX);
                     ivRightSide.setTranslateY(newY);
+                    System.out.println("newX is " + newX + " newY is " + newY);
                     boardBox.getChildren().add(ivRightSide);
+//                    System.out.println("Position X right : " + ivRightSide.getBoundsInParent() + "\n Position Y for right " + ivRightSide.getBoundsInParent());
                 }
             }
             if (!newGame.theBoard.leftSideList.isEmpty())
             {
-                for (int i = (newGame.theBoard.leftSideList.size()-1); i >= 0; i--)
+                double newXForLeft = 460 - 85;
+                double newYForLeft = newY - 10; //misplaces they right y
+                for (int i = 0; i < (newGame.theBoard.leftSideList.size());  i++)
                 {
-                    newXForLeft = newXForLeft + 20;
-                    if (i % 2 == 0)
+                    newXForLeft = newXForLeft - 20;
+                    if (i%2 == 0)
                     {
                         newYForLeft -= 20;
                     }
@@ -226,10 +227,10 @@ public class Controller extends Application
                     {
                         newYForLeft -= 60;
                     }
-                    if (newGame.theBoard.leftSideList.get(i).rotated == true)
-                    {
-                        rotation = -90.0;
-                    }
+//                    if (newGame.theBoard.leftSideList.get(i).rotated == true)
+//                    {
+//                        rotation = -90.0;
+//                    }
                     ImageView ivLeftSide = newGame.theBoard.leftSideList.get(i).getImage();
                     ivLeftSide.setFitWidth(20.0);
                     ivLeftSide.setFitHeight(50.0);

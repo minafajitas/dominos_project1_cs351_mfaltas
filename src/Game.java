@@ -28,7 +28,7 @@ public class Game
 
         if (gameOver == true)
         {
-            if (AIPlayer.hand.isEmpty())
+            if (AIPlayer.getHand().isEmpty())
             {
                 System.out.println("AI is winner");
             }

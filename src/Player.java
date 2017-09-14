@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Player
 {
-    int playerId;
-    public ArrayList<Domino> hand = new ArrayList<Domino>();
+    private int playerId;
+    private ArrayList<Domino> hand = new ArrayList<Domino>();
     int dominoSelected = -1;
 
     public Player(int playerId, ArrayList hand)
@@ -20,29 +20,29 @@ public class Player
 
     }
 
-    public void findPieceAI (Board theBoard)
+    public void findPieceAI (Board theBoard, Game theCurrGame)
     {
         for (Domino handDom: hand)
         {
             if (theBoard.isEmpty())
             {
-                theBoard.addDominoToBoard(handDom, true, true);
+                theBoard.addDominoToBoard(handDom, true, true, this.playerId, hand.indexOf(handDom), theCurrGame);
             }
             else if (handDom.sideOne == theBoard.getLeftSide())
             {
-                theBoard.addDominoToBoard(handDom, false, true);
+                theBoard.addDominoToBoard(handDom, false, true, this.playerId, hand.indexOf(handDom), theCurrGame);
             }
             else if (handDom.sideOne == theBoard.getRightSide())
             {
-                theBoard.addDominoToBoard(handDom, true, true);
+                theBoard.addDominoToBoard(handDom, true, true, this.playerId, hand.indexOf(handDom), theCurrGame);
             }
             else if (handDom.sideTwo == theBoard.getLeftSide())
             {
-                theBoard.addDominoToBoard(handDom, false, false);
+                theBoard.addDominoToBoard(handDom, false, false, this.playerId, hand.indexOf(handDom), theCurrGame);
             }
             else if (handDom.sideTwo == theBoard.getRightSide())
             {
-                theBoard.addDominoToBoard(handDom, false, false);
+                theBoard.addDominoToBoard(handDom, false, false, this.playerId, hand.indexOf(handDom), theCurrGame);
             }
         }
     }

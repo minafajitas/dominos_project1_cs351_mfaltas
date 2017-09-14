@@ -27,7 +27,7 @@ public class Board
     //left side = side one
     //right side = side two
 
-    public void addDominoToBoard (Domino addedDom, boolean rightSide, boolean sideOne)
+    public void addDominoToBoard (Domino addedDom, boolean rightSide, boolean sideOne, int playerID, int indOfDomAdded, Game theCurrGame)
     {
         if (leftSideList.isEmpty() && rightSideList.isEmpty() && centerDomino == null)
         {
@@ -55,6 +55,7 @@ public class Board
             this.leftSideList.add(addedDom);
             this.leftSide = addedDom.sideOne;
         }
+
     }
 
     public void printBoard()
