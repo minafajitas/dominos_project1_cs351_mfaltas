@@ -7,6 +7,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -40,6 +42,8 @@ public class Controller extends Application
         VBox handBox = new VBox();
         HBox handImagesBox = new HBox();
         VBox boardBox = new VBox();
+        ScrollPane boardScroll = new ScrollPane(boardBox);
+        boardScroll.setFitToHeight(true);
 
         //Set the box for a AI turn window
         Stage AITurnStage = new Stage();
@@ -79,6 +83,7 @@ public class Controller extends Application
 //        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(3),false, true);
 //        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(4),false, true);
 
+        boardScroll.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
         boardBox.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
 
         //defining necessary buttons
@@ -100,7 +105,7 @@ public class Controller extends Application
         gameInterface.setRight(rightBox);
         leftBox.getChildren().add(placeLeft);
         rightBox.getChildren().add(placeRight);
-        gameInterface.setCenter(boardBox);
+        gameInterface.setCenter(boardScroll);//////////////////////////////////////////////////////////////////////////////////////////////////
         handBox.getChildren().add(handImagesBox);
         hand_buttons.getChildren().addAll(domino1, domino2, domino3, domino4, domino5, domino6, domino7, drawFromBoneyard, passTurn);
         handBox.getChildren().add(hand_buttons);
@@ -197,7 +202,7 @@ public class Controller extends Application
         passTurn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (newGame.humanPlayer.getHandSize() == 7)
+                if (newGame.humanPlayer.getHandSize() == 7 || newGame.boneyard.bundle.isEmpty())
                 {
                     newGame.AIPlayer.findPieceAI(newGame);
                     AITurnStage.show();
@@ -292,14 +297,15 @@ public class Controller extends Application
                 double newYForLeft = newY - 10; //misplaces they right y
                 for (int i = 0; i < (newGame.theBoard.leftSideList.size());  i++)
                 {
-                    newXForLeft = newXForLeft - 20;
                     if (i%2 == 0)
                     {
                         newYForLeft -= 20;
+                        newXForLeft = newXForLeft - 15;
                     }
                     else
                     {
                         newYForLeft -= 60;
+                        newXForLeft = newXForLeft - 25;
                     }
                     if (newGame.theBoard.leftSideList.get(i).rotated == true)
                     {

@@ -15,16 +15,6 @@ public class Game
         AIPlayer = new Player(2, boneyard.getRandomDominoBundle(7));
 
         boolean gameOver = false;
-//        while (gameOver == false)
-//        {
-//            AIPlayer.findPieceAI(theBoard);
-//            humanPlayer.findPieceHuman(theBoard);
-//
-//            if (AIPlayer.hand.isEmpty() || humanPlayer.hand.isEmpty())
-//            {
-//                gameOver = true;
-//            }
-//        }
 
         if (gameOver == true)
         {
