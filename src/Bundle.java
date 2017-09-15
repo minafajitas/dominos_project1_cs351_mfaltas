@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * this class instantiates the boneyard.
+ */
 public class Bundle
 {
     int maxDomino;
@@ -21,6 +24,11 @@ public class Bundle
         }
     }
 
+    /**
+     * gets a random domino from the boneyard for the purpose of adding to a player hand.
+     * Also removes that domino from the boneyard.
+     * @return Domino
+     */
     Domino getRandomDomino ()
     {
         Random rand = new Random();
@@ -35,6 +43,12 @@ public class Bundle
         return bundle.size();
     }
 
+    /**
+     * Creates a new boneyard by instantiating new dominos.
+     * Also gives each player 7 dominos right away.
+     * @param numRandDom
+     * @return ArrayList
+     */
     public ArrayList<Domino> getRandomDominoBundle(int numRandDom)
     {
         ArrayList randHand = new ArrayList<Domino>();

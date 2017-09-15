@@ -9,12 +9,23 @@ public class Player
     private ArrayList<Domino> hand = new ArrayList<Domino>();
     int dominoSelected = -1;
 
+    /**
+     * creates instance of play with a private hand.
+     * @param playerId
+     * @param hand
+     */
     public Player(int playerId, ArrayList hand)
     {
         this.playerId = playerId;
         this.hand = hand;
     }
 
+    /**
+     * checks user input to make sure that numbers match.
+     * @param theCurrGame
+     * @param addToRight
+     * @return
+     */
     boolean isLegal (Game theCurrGame, Boolean addToRight)
     {
         if (((theCurrGame.humanPlayer.getHand().get(dominoSelected).sideOne == theCurrGame.theBoard.getLeftSide() || theCurrGame.humanPlayer.getHand().get(dominoSelected).sideTwo == theCurrGame.theBoard.getLeftSide()) && addToRight == false)
@@ -30,6 +41,10 @@ public class Player
         }
     }
 
+    /**
+     * The AI method to find a domino to be placed.
+     * @param theCurrGame
+     */
     public void findPieceAI (Game theCurrGame)
     {
         for (int handDomIndex = 0; handDomIndex < theCurrGame.AIPlayer.getHand().size(); handDomIndex++)
@@ -67,6 +82,11 @@ public class Player
         }
     }
 
+    /**
+     * Calls the board to get a random domino to place in player's hand.
+     * @param theCurrGame
+     * @param playerDrawing
+     */
     void drawFromBoneyard (Game theCurrGame, Player playerDrawing)
     {
         if (!theCurrGame.boneyard.bundle.isEmpty() && playerDrawing.getHandSize() < 7)
@@ -76,6 +96,10 @@ public class Player
 
     }
 
+    /**
+     * returns the player's hand.
+     * @return
+     */
     public ArrayList<Domino> getHand() {
         return hand;
     }
@@ -85,6 +109,10 @@ public class Player
         return playerId;
     }
 
+    /**
+     * gets the player's hand size.
+     * @return
+     */
     int getHandSize ()
     {
         return hand.size();

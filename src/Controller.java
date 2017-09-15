@@ -272,6 +272,11 @@ public class Controller extends Application
         primaryStage.show();
     }
 
+    /**
+     * This method paints the board. Called every turn.
+     * @param newGame
+     * @param boardBox
+     */
     void paintTheBoard (Game newGame, VBox boardBox)
     {
         if (!newGame.theBoard.isEmpty())
@@ -360,6 +365,11 @@ public class Controller extends Application
         }
     }
 
+    /**
+     * Paints the hand. Called every turn.
+     * @param newGame
+     * @param handImagesBox
+     */
     void paintHand (Game newGame, HBox handImagesBox)
     {
         handImagesBox.getChildren().clear();
@@ -372,6 +382,11 @@ public class Controller extends Application
         }
     }
 
+    /**
+     * checks if any player has an empty hand to display the winning message; called by the next turn buttons.
+     * @param theCurrGame
+     * @return
+     */
     int checkWinConditions (Game theCurrGame)
     {
         if (theCurrGame.humanPlayer.getHandSize() == 0)

@@ -7,12 +7,19 @@ public class Board
     private int leftSide, rightSide;
     Domino centerDomino;
 
+    /**
+     * creates a new instrance of the board and sets two arrays; one to the left side of the center domino and one to the right.
+     */
     public Board ()
     {
         leftSideList = new ArrayList<Domino>();
         rightSideList = new ArrayList<Domino>();
     }
 
+    /**
+     * checks if the board is empty.
+     * @return
+     */
     public boolean isEmpty()
     {
         if (leftSideList.isEmpty() && rightSideList.isEmpty() && centerDomino == null) {
@@ -24,6 +31,14 @@ public class Board
         }
     }
 
+    /**
+     * add a domino to the board. has to specify which side matches and whether adding to the left side or right side.
+     * @param addedDom
+     * @param rightSide
+     * @param sideOne
+     * @param currPlayer
+     * @param indOfDomAdded
+     */
     //left side = side one
     //right side = side two
     public void addDominoToBoard (Domino addedDom, boolean rightSide, boolean sideOne, Player currPlayer, int indOfDomAdded)
@@ -71,11 +86,19 @@ public class Board
         }
     }
 
+    /**
+     * gets the exposed number of the last domino in the right side array.
+     * @return
+     */
     public int getRightSide()
     {
         return rightSide;
     }
 
+    /**
+     * get the exposed number of the last domino in the left side array.
+     * @return
+     */
     public int getLeftSide()
     {
         return leftSide;

@@ -5,9 +5,11 @@ public class Game
     Player humanPlayer;
     Player AIPlayer;
 
+    /**
+     * creates instances of everything.
+     */
     public Game ()
     {
-
         //instantiates a new boneyard and 7 dominos to each player.
         boneyard = new Bundle(6);
         theBoard = new Board();

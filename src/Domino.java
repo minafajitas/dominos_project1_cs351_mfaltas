@@ -10,7 +10,11 @@ public class Domino {
     boolean rotated;
     String imageText;
 
-
+    /**
+     * Creates a new instance with a specific image and two sides of a domino.
+     * @param sideOne
+     * @param sideTwo
+     */
     public Domino (int sideOne, int sideTwo)
     {
         this.sideOne = sideOne;
@@ -20,6 +24,9 @@ public class Domino {
         imageText = sideTwo + "-" + sideOne + ".png";
     }
 
+    /**
+     * Rotates a domino by switching sides one and two.
+     */
     public void rotateDomino ()
     {
         int temp = sideOne;
@@ -37,6 +44,10 @@ public class Domino {
 
     }
 
+    /**
+     * returns an ImageView of the domino for the hand.
+     * @return
+     */
     public ImageView getImage ()
     {
         boolean rotateInGetImage = false;
@@ -59,5 +70,4 @@ public class Domino {
         return dominoImageView;
 
     }
-
 }
