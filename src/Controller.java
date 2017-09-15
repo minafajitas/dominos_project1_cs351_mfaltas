@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -30,6 +31,7 @@ public class Controller extends Application
     {
         primaryStage.setTitle("Mina Faltas's dominos Adventure DLC");
         Game newGame = new Game();
+        HBox mainMenu = new HBox();
 
         //defining necessary banes and boxes
         Stage gameStage  = new Stage();
@@ -45,6 +47,40 @@ public class Controller extends Application
         ScrollPane boardScroll = new ScrollPane(boardBox);
         boardScroll.setFitToHeight(true);
 
+        //donate button
+        Stage donateStage = new Stage();
+        donateStage.setTitle("Donate Now!");
+        BorderPane donateBorder = new BorderPane();
+        Button donate = new Button("Donate now!");
+        Button enterInfo = new Button("Enter");
+        Text donateText = new Text();
+        Text vladimirText = new Text();
+        donateText.setText("Enter your bank account information belew. \n We accept credit, debit, cash, savings, visa, mastercard, and bitcoin");
+        vladimirText.setText("I think we should not control the internet -Vladimir Putin");
+        TextField donateTextField = new TextField();
+
+        donateBorder.setTop(donateText);
+        donateBorder.setCenter(donateTextField);
+        donateBorder.setBottom(vladimirText);
+        donateBorder.setRight(enterInfo);
+        donateStage.setScene(new Scene(donateBorder, 500,100));
+        mainMenu.getChildren().add(donate);
+
+        donate.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                donateStage.show();
+            }
+        });
+
+        enterInfo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                donateTextField.setText("");
+            }
+        });
+
+
         //Set the box for a AI turn window
         Stage AITurnStage = new Stage();
         Text turnAIText = new Text();
@@ -59,7 +95,7 @@ public class Controller extends Application
         Stage winStageAI = new Stage();
         Text winTextHuman = new Text();
         Text winTextAI = new Text();
-        winTextHuman.setText("The Human player has won");
+        winTextHuman.setText("The Human player has won. \n For liberty and justice for all!");
         winTextAI.setText("The AI players has won");
         StackPane winPaneAI = new StackPane();
         StackPane winPaneHuman = new StackPane();
@@ -87,15 +123,15 @@ public class Controller extends Application
         boardBox.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
 
         //defining necessary buttons
-        Button domino1 = new Button("Place domino 1");
-        Button domino2 = new Button("Place domino 2");
-        Button domino3 = new Button("Place domino 3");
-        Button domino4 = new Button("Place domino 4");
-        Button domino5 = new Button("Place domino 5");
-        Button domino6 = new Button("Place domino 6");
-        Button domino7 = new Button("Place domino 7");
-        Button placeLeft = new Button("Place on left side");
-        Button placeRight = new Button("Place on right side");
+        Button domino1 = new Button("Dunk domino 1");
+        Button domino2 = new Button("Dunk domino 2");
+        Button domino3 = new Button("Dunk domino 3");
+        Button domino4 = new Button("Dunk domino 4");
+        Button domino5 = new Button("Dunk domino 5");
+        Button domino6 = new Button("Dunk domino 6");
+        Button domino7 = new Button("Dunk domino 7");
+        Button placeLeft = new Button("Dunk on left side");
+        Button placeRight = new Button("Dunk on right side");
         Button drawFromBoneyard = new Button("Draw from the boneyard");
         Button passTurn = new Button("Skip turn");
 
@@ -220,9 +256,8 @@ public class Controller extends Application
         //set things on the primary stage
         gameStage.setScene(new Scene(totalPane,1000,1000));
         Button startGameButton = new Button();
-        StackPane mainMenu = new StackPane();
         mainMenu.getChildren().add(startGameButton);
-        primaryStage.setScene(new Scene(mainMenu, 300, 500));
+        primaryStage.setScene(new Scene(mainMenu, 450, 50));
 
         startGameButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
