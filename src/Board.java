@@ -73,19 +73,6 @@ public class Board
         currPlayer.getHand().remove(indOfDomAdded);
     }
 
-    public void printBoard()
-    {
-        for (Domino dom: leftSideList)
-        {
-            System.out.print(" |" + dom.sideOne + "-" + dom.sideTwo + "| ");
-        }
-        System.out.print(" |||" + centerDomino.sideOne + "-" + centerDomino.sideTwo + "||| ");
-        for (Domino dom: rightSideList)
-        {
-            System.out.print(" |" + dom.sideOne + "-" + dom.sideTwo + "| ");
-        }
-    }
-
     /**
      * gets the exposed number of the last domino in the right side array.
      * @return

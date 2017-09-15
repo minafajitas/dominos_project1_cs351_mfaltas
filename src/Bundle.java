@@ -38,11 +38,6 @@ public class Bundle
         return tempDomino;
     }
 
-    public int getNumberOfDominos ()
-    {
-        return bundle.size();
-    }
-
     /**
      * Creates a new boneyard by instantiating new dominos.
      * Also gives each player 7 dominos right away.
@@ -63,13 +58,5 @@ public class Bundle
             bundle.remove(bundle.get(randomInt));
         }
         return randHand;
-    }
-
-    public void printBundle ()
-    {
-        for (Domino dom: bundle)
-        {
-            System.out.println(" |" + dom.sideOne + "-" + dom.sideTwo + "| ");
-        }
     }
 }

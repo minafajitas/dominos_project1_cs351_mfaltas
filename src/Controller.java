@@ -2,22 +2,16 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 
 public class Controller extends Application
 {
@@ -105,19 +99,6 @@ public class Controller extends Application
         winStageAI.setScene(new Scene(winPaneAI, 300,40));
         winStageHuman.setTitle("Human has won");
         winStageHuman.setScene(new Scene(winPaneHuman, 300,40));
-
-
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(0),false, true);
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(1),true, true);
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(2),true, true);
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(3),true, true);
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(4),true, true);
-//
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(0),false, true);
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(1),false, true);
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(2),false, true);
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(3),false, true);
-//        newGame.theBoard.addDominoToBoard(newGame.humanPlayer.getHand().get(4),false, true);
 
         boardScroll.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
         boardBox.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
