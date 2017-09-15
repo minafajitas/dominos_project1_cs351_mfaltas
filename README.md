@@ -1,5 +1,5 @@
 # dominos_project1_cs351_mfaltas
-1) How to use the program
+1) How to use the program?
 The controller class instantiates a new game and that in turn instantiates the other classes. 
 The conrtroller has the main class and controler the GUI elements.
 The main menu has two buttons: The donate button and the start game button.
@@ -12,7 +12,7 @@ The winning player is the one with no dominos in their hand.
 The only debugging tools including are print out statements and they only utilize the command line. 
 Comment them out to exclude them from running.
 
-3)Who did what parts of the program and what parts (if any) are by a third party
+3)Who did what parts of the program and what parts (if any) are by a third party?
 I, Mina Faltas, did 100% of the project.
 
 4)A list of known bugs.
