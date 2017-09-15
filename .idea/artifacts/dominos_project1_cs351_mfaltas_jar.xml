@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="dominos_project1_cs351_mfaltas:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/dominos_project1_cs351_mfaltas_jar</output-path>
+    <root id="archive" name="dominos_project1_cs351_mfaltas.jar">
+      <element id="module-output" name="dominos_project1_cs351_mfaltas" />
+      <element id="dir-copy" path="$PROJECT_DIR$" />
+    </root>
+  </artifact>
+</component>
