@@ -266,10 +266,10 @@ public class Controller extends Application
                     {
                         newY += -60;
                     }
-//                    if (newGame.theBoard.rightSideList.get(i).rotated == true)
-//                    {
-//                        rotation = -90.0;
-//                    }
+                    if (newGame.theBoard.rightSideList.get(i).rotated == true)
+                    {
+                        rotation = -90.0;
+                    }
                     if (newGame.theBoard.rightSideList.get(i) != null)
                     {
                         ImageView ivRightSide = newGame.theBoard.rightSideList.get(i).getImage();
@@ -277,6 +277,7 @@ public class Controller extends Application
                         ivRightSide.setFitHeight(50.0);
                         ivRightSide.setPreserveRatio(true);
                         ivRightSide.setRotate(rotation);
+                        rotation = 90.0;
                         ivRightSide.setTranslateX(newX);
                         ivRightSide.setTranslateY(newY);
                         System.out.println("newX is " + newX + " newY is " + newY);
@@ -300,15 +301,16 @@ public class Controller extends Application
                     {
                         newYForLeft -= 60;
                     }
-//                    if (newGame.theBoard.leftSideList.get(i).rotated == true)
-//                    {
-//                        rotation = -90.0;
-//                    }
+                    if (newGame.theBoard.leftSideList.get(i).rotated == true)
+                    {
+                        rotation = -90.0;
+                    }
                     ImageView ivLeftSide = newGame.theBoard.leftSideList.get(i).getImage();
                     ivLeftSide.setFitWidth(20.0);
                     ivLeftSide.setFitHeight(50.0);
                     ivLeftSide.setPreserveRatio(true);
                     ivLeftSide.setRotate(rotation);
+                    rotation = 90.0;
                     ivLeftSide.setTranslateX(newXForLeft);
                     ivLeftSide.setTranslateY(newYForLeft);
                     boardBox.getChildren().add(ivLeftSide);

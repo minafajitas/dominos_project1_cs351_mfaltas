@@ -56,7 +56,7 @@ public class Player
             }
             else if (theCurrGame.AIPlayer.getHand().get(handDomIndex).sideTwo == theCurrGame.theBoard.getRightSide())
             {
-                theCurrGame.theBoard.addDominoToBoard(theCurrGame.AIPlayer.getHand().get(handDomIndex), false, false, theCurrGame.AIPlayer, handDomIndex);
+                theCurrGame.theBoard.addDominoToBoard(theCurrGame.AIPlayer.getHand().get(handDomIndex), true, false, theCurrGame.AIPlayer, handDomIndex);
                 return;
             }
             else
